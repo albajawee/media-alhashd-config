@@ -2,56 +2,57 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import Head from 'next/head';
 import { i18nData } from '../data/i18n';
 
-// --- DATA (Normally in separate files) ---
 
-// Updated feature data with new structure and prices in USD
+// Updated feature data with health app structure and prices in USD - All 25 Features
 const featuresData = {
   "sections": [
     {
       "id": "core",
       "icon": "CoreIcon",
       "features": [
-        { "id": "account_management", "price": 550, "icon": "UserIcon", "isEssential": true },
-        { "id": "events", "price": 250, "icon": "CalendarIcon", "isEssential": true  },
-        { "id": "push_notifications", "price": 400, "icon": "BellIcon", "isEssential": true  },
-        { "id": "cms", "price": 200, "icon": "FileTextIcon" },
-        { "id": "bilingual_support", "price": 750, "icon": "GlobeIcon" },
-        { "id": "live_match_center", "price": 650, "icon": "WatchIcon" }
+        { "id": "user_profile_direct", "price": 150, "icon": "UserIcon", "isEssential": false, "isExclusive": "user_profile_conversation" },
+        { "id": "user_profile_conversation", "price": 300, "icon": "UserIcon", "isEssential": false, "isExclusive": "user_profile_direct" },
+        { "id": "health_metrics", "price": 100, "icon": "CalendarIcon"  },
+        { "id": "medical_history", "price": 100, "icon": "FileTextIcon"  },
+                { "id": "nutrition_history", "price": 100, "icon": "GlobeIcon"}
       ]
     },
     {
-      "id": "ecommerce",
+      "id": "technical",
       "icon": "EcommerceIcon",
       "features": [
-        { "id": "product_management", "price": 200, "icon": "PackageIcon", "isEssential": true  },
-        { "id": "order_management", "price": 450, "icon": "ClipboardListIcon", "isEssential": true  },
-        { "id": "inventory_management", "price": 200, "icon": "ArchiveIcon", "isEssential": true  },
-        { "id": "discounts_coupons", "price": 150, "icon": "TicketIcon" },
-        { "id": "online_payment", "price": 600, "icon": "CreditCardIcon" },
-        { "id": "reviews_ratings", "price": 150, "icon": "MessageSquareIcon" }
+        { "id": "calorie_macro_calculation", "price": 150, "icon": "BarChart2Icon", "isEssential": true  },
+        { "id": "meal_plan_generator", "price": 350, "icon": "PackageIcon",   },
+    { "id": "food_logging", "price": 400, "icon": "ClipboardListIcon", "isEssential": true  },
+    { "id": "food_logging_cv", "price": 600, "icon": "EyeIcon", "isEssential": false },
+        { "id": "recipe_database", "price": 350, "icon": "ArchiveIcon", "isEssential": true  },
+        { "id": "recipe_database_local", "price": 200, "icon": "ArchiveIcon", "isEssential": false },
+                { "id": "exercise_programs", "price": 450, "icon": "ShieldIcon", "isEssential": true  },
+        { "id": "progress_tracking", "price": 350, "icon": "AwardIcon" }
       ]
     },
     {
-      "id": "forum",
+      "id": "development",
       "icon": "ForumIcon",
       "features": [
-        { "id": "moderation_tools", "price": 300, "icon": "ShieldIcon", "isEssential": true  },
-        { "id": "forum_profiles", "price": 350, "icon": "AwardIcon", "isEssential": true  },
-        { "id": "forum_topics", "price": 150, "icon": "MessageCircleIcon", "isEssential": true  },
-        { "id": "nested_replies", "price": 200, "icon": "GitMergeIcon", "isEssential": true  },
-        { "id": "polls", "price": 150, "icon": "BarChart2Icon" },
-        { "id": "social_interaction", "price": 200, "icon": "Share2Icon" },
-        { "id": "forum_notifications", "price": 300, "icon": "BellIcon" },
-        
+    { "id": "wearables_integration", "price": 1100, "icon": "GitMergeIcon" },
+        { "id": "movement_reminders", "price": 150, "icon": "BarChart2Icon" },
+    { "id": "sleep_tracking_basic", "price": 150, "icon": "Share2Icon", "isEssential": false },
+    { "id": "sleep_tracking_phone", "price": 300, "icon": "Share2Icon", "isEssential": false },
+    { "id": "sleep_tracking_wearables", "price": 450, "icon": "Share2Icon", "isEssential": false },
+    { "id": "stress_management", "price": 300, "icon": "BellIcon" },
+        { "id": "dashboard_analytics", "price": 450, "icon": "BarChart2Icon", "isEssential": true },
+        { "id": "historical_records", "price": 300, "icon": "ShieldIcon" }
       ]
     },
     {
-      "id": "addons",
+      "id": "extras",
       "icon": "PlusIcon",
        "features": [
-        { "id": "addons_analytics", "price": 350, "icon": "BarChart2Icon" },
-        { "id": "addons_api", "price": 250, "icon": "GitMergeIcon" },
-        { "id": "addons_maintenance", "price": 250, "icon": "ShieldIcon" }
+        { "id": "ai_recommendations", "price": 450, "icon": "UserIcon" },
+        { "id": "notifications_system", "price": 300, "icon": "BellIcon" },
+                { "id": "social_gamification", "price": 500, "icon": "AwardIcon" },
+                { "id": "monthly_maintenance_hosting", "price": 250, "icon": "ServerIcon", "isEssential": false }
       ]
     }
   ]
@@ -84,6 +85,7 @@ const ICONS = {
     PackageIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>,
     ClipboardListIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><line x1="12" y1="11" x2="12" y2="16"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>,
     ArchiveIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>,
+    ServerIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="6" rx="2" ry="2"></rect><rect x="2" y="15" width="20" height="6" rx="2" ry="2"></rect><line x1="6" y1="7" x2="6" y2="7"/><line x1="10" y1="7" x2="10" y2="7"/><line x1="6" y1="17" x2="6" y2="17"/><line x1="10" y1="17" x2="10" y2="17"/></svg>,
     TicketIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 15v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2M9 5v14M15 5v14"></path></svg>,
     CreditCardIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>,
     MessageSquareIcon: props => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>,
@@ -165,7 +167,28 @@ const useCart = () => {
 
     const addToCart = (itemId) => {
         if (!cartItems.includes(itemId)) {
-            setCartItems(prev => [...prev, itemId]);
+            // Check if this item has an exclusive relationship
+            const currentFeature = allFeatures.find(f => f.fullId === itemId);
+            
+            setCartItems(prev => {
+                let newItems = [...prev];
+                
+                // If the current feature has an exclusive relationship
+                if (currentFeature && currentFeature.isExclusive) {
+                    // Support both single-id exclusivity and array exclusivity
+                    if (Array.isArray(currentFeature.isExclusive)) {
+                        const exclusives = currentFeature.isExclusive.map(eid => `${currentFeature.sectionId}-${eid}`);
+                        newItems = newItems.filter(id => !exclusives.includes(id));
+                    } else {
+                        const exclusiveItemId = `${currentFeature.sectionId}-${currentFeature.isExclusive}`;
+                        newItems = newItems.filter(id => id !== exclusiveItemId);
+                    }
+                }
+                
+                // Add the new item
+                newItems.push(itemId);
+                return newItems;
+            });
         }
     };
 
@@ -186,26 +209,31 @@ const useCart = () => {
 // --- UI COMPONENTS ---
 
 const LandingPage = ({ onStart, t }) => (
-    <div className="min-h-screen w-full bg-slate-900 text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/football.png')"}}></div>
-        <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-yellow-400/20 rounded-full filter blur-3xl animate-pulse-slow animation-delay-4000"></div>
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 text-gray-800 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center opacity-5" style={{backgroundImage: "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"health\" patternUnits=\"userSpaceOnUse\" width=\"20\" height=\"20\"><circle cx=\"10\" cy=\"10\" r=\"2\" fill=\"%2310b981\" opacity=\"0.1\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23health)\"/></svg>')"}}></div>
+        <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-emerald-500/10 rounded-full filter blur-3xl animate-pulse-slow"></div>
+        <div className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-4000"></div>
 
         <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10">
-            <h1 className="text-2xl font-bold tracking-tighter">FanApp<span className="text-yellow-400">.Config</span></h1>
+            <h1 className="text-2xl font-bold tracking-tighter text-emerald-700">
+                <span className="text-emerald-600">🏥</span> HealthApp<span className="text-blue-600">.Config</span>
+            </h1>
         </header>
 
         <main className="text-center z-10 flex flex-col items-center">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
+            <div className="mb-6">
+                <span className="text-6xl">🏥💚</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight text-emerald-800" style={{textShadow: '0 2px 10px rgba(16,185,129,0.3)'}}>
                 {t('landing.title')}
             </h2>
-            <p className="max-w-2xl text-lg md:text-xl text-slate-300 mb-8">
+            <p className="max-w-2xl text-lg md:text-xl text-gray-600 mb-8">
                 {t('landing.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                     onClick={onStart} 
-                    className="bg-yellow-400 text-slate-900 font-bold px-8 py-4 rounded-full text-lg hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-yellow-500/20"
+                    className="bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold px-8 py-4 rounded-full text-lg hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-500/30"
                 >
                     {t('landing.cta')}
                 </button>
@@ -243,7 +271,7 @@ const ConfiguratorPage = ({ onBack, t }) => {
             maximumFractionDigits: 0,
         }).format(feature.price);
 
-        chip.className = 'fixed z-50 bg-yellow-400 text-slate-900 text-xs font-bold px-2 py-1 rounded-full pointer-events-none';
+        chip.className = 'fixed z-50 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full pointer-events-none';
         document.body.appendChild(chip);
 
         const startX = buttonRect.left + buttonRect.width / 2;
@@ -273,21 +301,24 @@ const ConfiguratorPage = ({ onBack, t }) => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-900 text-white font-sans">
-            <header className="sticky top-0 z-30 bg-slate-900/70 backdrop-blur-xl border-b border-slate-700">
+        <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 text-gray-800 font-sans">
+            <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-green-200 shadow-sm">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                    <h1 onClick={onBack} className="cursor-pointer text-2xl font-bold tracking-tighter">FanApp<span className="text-yellow-400">.Config</span></h1>
+                    <h1 onClick={onBack} className="cursor-pointer text-2xl font-bold tracking-tighter text-emerald-700">
+                        <span className="text-emerald-600">🏥</span> HealthApp<span className="text-blue-600">.Config</span>
+                    </h1>
                 </div>
             </header>
             <main className="container mx-auto p-4 lg:p-8">
                 <div className="mb-8 text-center">
-                    <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">{t('configurator.title')}</h2>
-                    <div className="mt-4 flex justify-center items-center gap-2 md:gap-4 text-sm text-slate-400">
-                        <span>{t('configurator.steps.1')}</span>
-                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180" />
-                        <span className="text-yellow-400 font-bold">{t('configurator.steps.2')}</span>
-                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180" />
-                        <span>{t('configurator.steps.3')}</span>
+                    <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-emerald-800 mb-2">{t('configurator.title')}</h2>
+                    <p className="text-lg text-gray-600 mb-6">تصميم تطبيق صحي متكامل لحياة أفضل</p>
+                    <div className="mt-4 flex justify-center items-center gap-2 md:gap-4 text-sm text-gray-500">
+                        <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium">{t('configurator.steps.1')}</span>
+                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180 text-emerald-400" />
+                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-medium">{t('configurator.steps.2')}</span>
+                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180 text-emerald-400" />
+                        <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">{t('configurator.steps.3')}</span>
                     </div>
                 </div>
                 
@@ -314,15 +345,15 @@ const ConfiguratorPage = ({ onBack, t }) => {
 const SectionCard = ({ section, t, handleToggleFeature, isInCart }) => {
     const SectionIcon = ICONS[section.icon];
     return (
-        <div className="bg-slate-800/50 border border-slate-700 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-slate-600 hover:shadow-yellow-500/5 animate-fade-in-up">
-            <div className="p-6 bg-slate-800 flex items-center gap-4 border-b border-slate-700">
-                {SectionIcon && <SectionIcon className="w-10 h-10 text-yellow-400" />}
+        <div className="bg-white border border-green-200 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-100/50 animate-fade-in-up">
+            <div className="p-6 bg-gradient-to-r from-emerald-500 to-blue-500 flex items-center gap-4 border-b border-emerald-200">
+                {SectionIcon && <SectionIcon className="w-10 h-10 text-white" />}
                 <div>
-                    <h3 className="text-2xl font-bold">{t(`section.${section.id}.title`)}</h3>
-                    <p className="text-slate-400">{t(`section.${section.id}.desc`)}</p>
+                    <h3 className="text-2xl font-bold text-white">{t(`section.${section.id}.title`)}</h3>
+                    <p className="text-emerald-100">{t(`section.${section.id}.desc`)}</p>
                 </div>
             </div>
-            <div className="divide-y divide-slate-700/50">
+            <div className="divide-y divide-gray-100">
                 {section.features.map((feature, index) => (
                     <FeatureRow 
                         key={feature.id}
@@ -353,29 +384,34 @@ const FeatureRow = ({ feature, t, onToggle, isInCart, index }) => {
 
     return (
         <div 
-           className="p-4 flex items-center justify-between gap-4 hover:bg-slate-800/50 transition-colors duration-200 animate-fade-in-up" 
+           className="p-4 flex items-center justify-between gap-4 hover:bg-emerald-50 transition-colors duration-200 animate-fade-in-up" 
            style={{animationDelay: `${index * 50}ms`}}
         >
             <div className="flex items-center gap-4">
-                <DynamicIcon name={feature.icon} className="w-6 h-6 text-slate-400 hidden sm:block" />
+                <DynamicIcon name={feature.icon} className="w-6 h-6 text-emerald-600 hidden sm:block" />
                 <div>
                     <div className="flex items-center gap-2">
-                        <h4 className="font-semibold text-white">{t(`feature.${feature.id}.title`)}</h4>
+                        <h4 className="font-semibold text-gray-800">{t(`feature.${feature.id}.title`)}</h4>
                         {feature.isEssential && (
-                            <span className="text-xs font-bold text-green-300 bg-green-500/20 px-2 py-0.5 rounded-full shadow-sm shadow-green-500/50">
+                            <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full shadow-sm">
                                 {t('feature.essential_tag')}
                             </span>
                         )}
+                        {feature.isExclusive && (
+                            <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full shadow-sm">
+                                {t('feature.exclusive_tag')}
+                            </span>
+                        )}
                     </div>
-                    <p className="text-sm text-slate-400">{t(`feature.${feature.id}.desc`)}</p>
+                    <p className="text-sm text-gray-600">{t(`feature.${feature.id}.desc`)}</p>
                 </div>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-                <div className="text-yellow-400 font-bold text-sm sm:text-base">{formattedPrice}</div>
+                <div className="text-emerald-600 font-bold text-sm sm:text-base">{formattedPrice}</div>
                 {feature.isEssential ? (
                     <button
                         disabled
-                        className="w-28 h-10 rounded-full font-bold text-sm flex items-center justify-center gap-1 bg-green-500/20 text-green-400 cursor-not-allowed"
+                        className="w-28 h-10 rounded-full font-bold text-sm flex items-center justify-center gap-1 bg-emerald-100 text-emerald-700 cursor-not-allowed"
                     >
                         <CheckIcon className="w-4 h-4" />
                         <span>{t('feature.added_tag')}</span>
@@ -386,8 +422,8 @@ const FeatureRow = ({ feature, t, onToggle, isInCart, index }) => {
                         onClick={() => onToggle(feature, buttonRef)} 
                         className={`w-28 h-10 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center gap-1 ${
                             inCart 
-                            ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                            : 'bg-yellow-400/20 text-yellow-300 hover:bg-yellow-400/30'
+                            ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                            : 'bg-blue-500 text-white hover:bg-blue-600'
                         }`}
                     >
                         {inCart ? ( <> <CheckIcon className="w-4 h-4" /> <span>{t('feature.remove')}</span> </> ) 
@@ -437,28 +473,28 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
 
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-fade-in">
+            <div className="bg-white border border-green-200 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-fade-in">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-slate-700">
+                <div className="flex items-center justify-between p-6 border-b border-green-200 bg-gradient-to-r from-emerald-500 to-blue-500">
                     <div className="flex items-center gap-3">
-                        <EyeIcon className="w-6 h-6 text-yellow-400" />
+                        <EyeIcon className="w-6 h-6 text-white" />
                         <div>
                             <h2 className="text-xl font-bold text-white">{t('review.title')}</h2>
-                            <p className="text-slate-400 text-sm">{t('review.subtitle')}</p>
+                            <p className="text-emerald-100 text-sm">{t('review.subtitle')}</p>
                         </div>
                     </div>
                     <button 
                         onClick={onClose}
-                        className="p-2 hover:bg-slate-700 rounded-lg transition-colors"
+                        className="p-2 hover:bg-white/20 rounded-lg transition-colors"
                         disabled={isGenerating}
                     >
-                        <XIcon className="w-5 h-5 text-slate-400" />
+                        <XIcon className="w-5 h-5 text-white" />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 max-h-[60vh] overflow-y-auto">
-                    <h3 className="text-lg font-semibold text-white mb-4">{t('review.selected_features')}</h3>
+                <div className="p-6 max-h-[60vh] overflow-y-auto bg-gray-50">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('review.selected_features')}</h3>
                     
                     {/* Features by section */}
                     {featuresData.sections.map(section => {
@@ -588,11 +624,11 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
             // Header with English text to avoid Arabic issues
             doc.setFont('Helvetica', 'bold');
             doc.setFontSize(20);
-            doc.text('Fan App Configuration Summary', pageWidth / 2, 25, { align: 'center' });
+            doc.text('Health App Configuration Summary', pageWidth / 2, 25, { align: 'center' });
             
             doc.setFont('Helvetica', 'normal');
             doc.setFontSize(12);
-            doc.text('Detailed Report of Selected Features', pageWidth / 2, 35, { align: 'center' });
+            doc.text('Detailed Report of Selected Health Features', pageWidth / 2, 35, { align: 'center' });
             
             // Date
             doc.setFontSize(10);
@@ -691,7 +727,7 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
             doc.text('Created by Raqeem.team', pageWidth / 2, pageHeight - 15, { align: 'center' });
 
             // Save the PDF
-            doc.save(`FanApp_Configuration_${new Date().getTime()}.pdf`);
+            doc.save(`HealthApp_Configuration_${new Date().getTime()}.pdf`);
             
         } catch (err) {
             console.error('Error generating PDF:', err);
@@ -705,38 +741,50 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
     // Helper functions to get English names for PDF
     const getSectionNameInEnglish = (sectionId) => {
         const sectionNames = {
-            'core': 'Core Application',
-            'ecommerce': 'E-Commerce Store',
-            'forum': 'Interactive Forum',
-            'addons': 'Add-ons & Extras'
+            'core': 'Core Profile & Health Data',
+            'technical': 'Nutrition & Fitness Features',
+            'development': 'Integration & Development',
+            'extras': 'Advanced Features'
         };
         return sectionNames[sectionId] || sectionId;
     };
 
     const getFeatureNameInEnglish = (featureId) => {
         const featureNames = {
-            'account_management': 'Account & Membership Management',
-            'events': 'Events & Activities Organization',
-            'push_notifications': 'Push Notifications',
-            'cms': 'Content Management',
-            'bilingual_support': 'Bilingual Interface',
-            'live_match_center': 'Live Match Center',
-            'product_management': 'Product Management',
-            'order_management': 'Order Management',
-            'inventory_management': 'Inventory Management',
-            'discounts_coupons': 'Discounts & Coupons',
-            'online_payment': 'Online Payment & Shopping Experience',
-            'reviews_ratings': 'Reviews & Ratings',
-            'forum_topics': 'Discussions & Topics',
-            'nested_replies': 'Comments & Replies',
-            'polls': 'Polls & Surveys',
-            'social_interaction': 'Social Interaction',
-            'forum_profiles': 'User Profiles',
-            'forum_notifications': 'Forum Notifications',
-            'moderation_tools': 'Forum Moderation Tools',
-            'addons_analytics': 'Analytics & AI Reports',
-            'addons_api': 'External API Integration',
-            'addons_maintenance': 'Maintenance & Hosting'
+            // Core Health Features (6 features)
+            'user_profile_direct': 'Direct Profile Creation',
+            'user_profile_conversation': 'Conversational Profile Creation',
+            'health_metrics': 'Health Metrics Calculation',
+            'medical_history': 'Medical History & Allergies',
+            'nutrition_history': 'Nutrition History & Preferences',
+            
+            // Technical Features (9 features)
+            'calorie_macro_calculation': 'Calorie & Macro Calculation',
+            'meal_plan_generator': 'Automated Meal Plan Generator',
+            'food_logging': 'Food Logging & Barcode Scanning',
+            'food_logging_cv': 'Computer Vision Food Logging',
+            'recipe_database': 'Advanced Recipe Database',
+            'recipe_database_local': 'Local Recipe Database',
+            'exercise_programs': 'Custom Exercise Programs',
+            'progress_tracking': 'Fitness Progress Tracking',
+            
+            // Development Features (8 features)
+            'wearables_integration': 'Wearable Devices Integration',
+            'movement_reminders': 'Daily Movement Reminders',
+            'sleep_tracking': 'Sleep Tracking & Recommendations',
+            'sleep_tracking_basic': 'Basic Sleep Tracking (manual input)',
+            'sleep_tracking_phone': 'Phone Sensor Sleep Tracking (automatic)',
+            'sleep_tracking_wearables': 'Wearables Sleep Tracking (professional)',
+            'stress_management': 'Stress Management & Meditation',
+            'dashboard_analytics': 'Dashboard & Analytics',
+            'historical_records': 'Historical Records & Reports',
+            
+            // Extra Features (3 features)
+            'ai_recommendations': 'Smart Recommendation Engine',
+            'notifications_system': 'Comprehensive Notification System',
+            'social_gamification': 'Social Features & Gamification'
+            ,
+            'monthly_maintenance_hosting': 'Monthly Maintenance & Hosting (usage-based API fees)'
         };
         return featureNames[featureId] || featureId;
     };
@@ -757,30 +805,30 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
                 isGenerating={isGenerating}
             />
             
-            <div className="sticky top-28 bg-slate-800/50 border border-slate-700 rounded-2xl shadow-lg p-6">
+            <div className="sticky top-28 bg-white border border-green-200 rounded-2xl shadow-lg p-6">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 ref={cartIconRef} className="text-xl font-bold">{t('cart.title')}</h3>
+                    <h3 ref={cartIconRef} className="text-xl font-bold text-gray-800">{t('cart.title')}</h3>
                 </div>
                 {selectedItems.length === 0 ? (
-                    <div className="text-center text-slate-400 py-12">
-                        <EcommerceIcon className="w-16 h-16 mx-auto text-slate-600 mb-4" />
+                    <div className="text-center text-gray-500 py-12">
+                        <EcommerceIcon className="w-16 h-16 mx-auto text-gray-300 mb-4" />
                         <p>{t('cart.empty')}</p>
                     </div>
                 ) : (
                     <div className="space-y-3 max-h-[300px] lg:max-h-[400px] overflow-y-auto pr-2 -mr-2">
                         {selectedItems.map(item => (
-                            <div key={item.fullId} className="flex justify-between items-center bg-slate-700/50 p-3 rounded-lg animate-fade-in-up">
+                            <div key={item.fullId} className="flex justify-between items-center bg-green-50 border border-green-100 p-3 rounded-lg animate-fade-in-up">
                                 <div className="flex items-center gap-3">
-                                    <DynamicIcon name={item.icon} className="w-5 h-5 text-slate-400" />
-                                    <span className="text-sm">{t(`feature.${item.id}.title`)}</span>
-                                    {item.isEssential && <span className="text-xs font-bold text-green-300 bg-green-500/20 px-2 py-0.5 rounded-full">{t('feature.essential_tag')}</span>}
+                                    <DynamicIcon name={item.icon} className="w-5 h-5 text-emerald-600" />
+                                    <span className="text-sm text-gray-800">{t(`feature.${item.id}.title`)}</span>
+                                    {item.isEssential && <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">{t('feature.essential_tag')}</span>}
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className="text-sm font-semibold">{formatCurrency(item.price)}</span>
+                                    <span className="text-sm font-semibold text-emerald-700">{formatCurrency(item.price)}</span>
                                     <button
                                         onClick={() => onRemove(item.fullId)}
                                         disabled={item.isEssential}
-                                        className={`text-slate-500 transition-colors ${item.isEssential ? 'cursor-not-allowed opacity-50' : 'hover:text-red-400'}`}
+                                        className={`text-gray-400 transition-colors ${item.isEssential ? 'cursor-not-allowed opacity-50' : 'hover:text-red-500'}`}
                                     >
                                         <TrashIcon className="w-4 h-4"/>
                                     </button>
@@ -791,20 +839,20 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
                 )}
                 
                 {selectedItems.length > 0 && (
-                    <div className="mt-6 pt-6 border-t border-slate-700 space-y-2 text-sm">
+                    <div className="mt-6 pt-6 border-t border-green-200 space-y-2 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-slate-400">{t('cart.subtotal')}</span>
-                            <span className="font-semibold">{formatCurrency(subtotal)}</span>
+                            <span className="text-gray-600">{t('cart.subtotal')}</span>
+                            <span className="font-semibold text-gray-800">{formatCurrency(subtotal)}</span>
                         </div>
                         <div className="flex justify-between text-lg">
-                            <span className="font-bold">{t('cart.total')}</span>
-                            <span className="text-yellow-400 font-extrabold text-2xl" aria-live="polite">
+                            <span className="font-bold text-gray-800">{t('cart.total')}</span>
+                            <span className="text-emerald-600 font-extrabold text-2xl" aria-live="polite">
                                 {t('currency.usd')}<AnimatedNumber value={total} />
                             </span>
                         </div>
                         <button 
                             onClick={handleReviewClick}
-                            className="w-full mt-6 bg-yellow-400 text-slate-900 font-bold py-3 rounded-lg hover:bg-yellow-300 transition-colors transform hover:scale-[1.02]"
+                            className="w-full mt-6 bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold py-3 rounded-lg hover:from-emerald-600 hover:to-blue-600 transition-all transform hover:scale-[1.02] shadow-lg"
                         >
                             {t('cart.submit')}
                         </button>
@@ -834,18 +882,18 @@ export default function App() {
     return (
         <>
             <Head>
-                <title>FanApp.Config - صمم تطبيق المشجعين الأمثل</title>
-                <meta name="description" content="اختر الميزات، قم بتكوين باقتك، وأنشئ تجربة هاتف عالمية المستوى لمشجعي ناديك" />
+                <title>HealthApp.Config - صمم تطبيق الصحة واللياقة الأمثل</title>
+                <meta name="description" content="اختر الميزات، قم بتكوين باقتك، وأنشئ تجربة صحية شخصية ومتطورة لتحقيق أهدافك الصحية" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.svg" />
             </Head>
             <style jsx global>{`
                 :root { font-family: 'Cairo', sans-serif; }
                 .high-contrast { background-color: #000 !important; color: #fff !important; }
-                .high-contrast .bg-slate-900, .high-contrast .bg-slate-800\/50, .high-contrast .bg-slate-800 { background: #000 !important; border: 1px solid #fff !important; }
-                .high-contrast .text-slate-300, .high-contrast .text-slate-400 { color: #fff !important; }
-                .high-contrast .text-yellow-400 { color: #FFFF00 !important; }
-                .high-contrast .bg-yellow-400 { background-color: #FFFF00 !important; color: #000 !important; }
+                .high-contrast .bg-white, .high-contrast .bg-green-50, .high-contrast .bg-emerald-50 { background: #000 !important; border: 1px solid #fff !important; }
+                .high-contrast .text-gray-600, .high-contrast .text-gray-800 { color: #fff !important; }
+                .high-contrast .text-emerald-600 { color: #10b981 !important; }
+                .high-contrast .bg-emerald-500 { background-color: #10b981 !important; color: #000 !important; }
                 .animation-delay-4000 { animation-delay: 4s; }
                 .animate-pulse-slow { animation: pulse 8s cubic-bezier(0.4, 0.6, 1) infinite; }
                 .animate-pulse-fast { animation: pulse 0.3s cubic-bezier(0.4, 0, 0.6, 1) once; }
