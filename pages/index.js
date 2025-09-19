@@ -504,25 +504,25 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                         return (
                             <div key={section.id} className="mb-6">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <DynamicIcon name={section.icon} className="w-5 h-5 text-yellow-400" />
-                                    <h4 className="text-md font-semibold text-slate-300">{t(`section.${section.id}.title`)}</h4>
+                                    <DynamicIcon name={section.icon} className="w-5 h-5 text-emerald-600" />
+                                    <h4 className="text-md font-semibold text-gray-700">{t(`section.${section.id}.title`)}</h4>
                                 </div>
                                 <div className="space-y-2">
                                     {sectionFeatures.map(item => (
-                                        <div key={item.fullId} className="flex items-center justify-between bg-slate-700/50 p-3 rounded-lg">
+                                        <div key={item.fullId} className="flex items-center justify-between bg-white border border-green-100 p-3 rounded-lg shadow-sm">
                                             <div className="flex items-center gap-3">
-                                                <DynamicIcon name={item.icon} className="w-4 h-4 text-slate-400" />
+                                                <DynamicIcon name={item.icon} className="w-4 h-4 text-emerald-600" />
                                                 <div>
-                                                    <span className="text-white text-sm font-medium">{t(`feature.${item.id}.title`)}</span>
+                                                    <span className="text-gray-800 text-sm font-medium">{t(`feature.${item.id}.title`)}</span>
                                                     {item.isEssential && (
-                                                        <span className="text-xs font-bold text-green-300 bg-green-500/20 px-2 py-0.5 rounded-full mr-2">
+                                                        <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full mr-2">
                                                             {t('feature.essential_tag')}
                                                         </span>
                                                     )}
-                                                    <p className="text-slate-400 text-xs">{t(`feature.${item.id}.desc`)}</p>
+                                                    <p className="text-gray-600 text-xs">{t(`feature.${item.id}.desc`)}</p>
                                                 </div>
                                             </div>
-                                            <span className="text-yellow-400 font-semibold">{formatCurrency(item.price)}</span>
+                                            <span className="text-emerald-600 font-semibold">{formatCurrency(item.price)}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -532,16 +532,16 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-slate-700 bg-slate-800/50">
+                <div className="p-6 border-t border-green-200 bg-white">
                     <div className="flex items-center justify-between mb-4">
-                        <span className="text-lg font-bold text-white">{t('review.total_cost')}</span>
-                        <span className="text-2xl font-extrabold text-yellow-400">{formatCurrency(total)}</span>
+                        <span className="text-lg font-bold text-gray-800">{t('review.total_cost')}</span>
+                        <span className="text-2xl font-extrabold text-emerald-600">{formatCurrency(total)}</span>
                     </div>
                     
                     <div className="flex gap-3">
                         <button 
                             onClick={onClose}
-                            className="flex-1 bg-slate-700 text-white font-semibold py-3 rounded-lg hover:bg-slate-600 transition-colors"
+                            className="flex-1 bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors"
                             disabled={isGenerating}
                         >
                             {t('review.cancel')}
@@ -549,11 +549,11 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                         <button 
                             onClick={onConfirm}
                             disabled={isGenerating}
-                            className="flex-1 bg-yellow-400 text-slate-900 font-bold py-3 rounded-lg hover:bg-yellow-300 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                            className="flex-1 bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold py-3 rounded-lg hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
                         >
                             {isGenerating ? (
                                 <>
-                                    <div className="w-4 h-4 border-2 border-slate-900/30 border-t-slate-900 rounded-full animate-spin"></div>
+                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                                     {t('review.generating')}
                                 </>
                             ) : (
