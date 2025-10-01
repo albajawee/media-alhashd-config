@@ -3,56 +3,57 @@ import Head from 'next/head';
 import { i18nData } from '../data/i18n';
 
 
-// Updated feature data with health app structure and prices in USD - All 25 Features
+// ميديا الحشد - تطبيق شبيه بـ Netflix باللغة العربية
 const featuresData = {
   "sections": [
     {
       "id": "core",
       "icon": "CoreIcon",
       "features": [
-        { "id": "user_profile_direct", "price": 150, "icon": "UserIcon", "isEssential": false, "isExclusive": "user_profile_conversation" },
-        { "id": "user_profile_conversation", "price": 300, "icon": "UserIcon", "isEssential": false, "isExclusive": "user_profile_direct" },
-        { "id": "health_metrics", "price": 100, "icon": "CalendarIcon"  },
-        { "id": "medical_history", "price": 100, "icon": "FileTextIcon"  },
-                { "id": "nutrition_history", "price": 100, "icon": "GlobeIcon"}
+        { "id": "arabic_ui", "price": 300, "icon": "GlobeIcon", "isEssential": true },
+        { "id": "user_registration", "price": 200, "icon": "UserIcon", "isEssential": true },
+        { "id": "account_management", "price": 150, "icon": "UserIcon", "isEssential": true },
+        { "id": "video_display_page", "price": 100, "icon": "EyeIcon", "isEssential": true },
+        { "id": "video_player", "price": 150, "icon": "WatchIcon", "isEssential": true },
+        { "id": "video_upload", "price": 400, "icon": "PackageIcon", "isEssential": true },
+        { "id": "admin_dashboard", "price": 800, "icon": "BarChart2Icon", "isEssential": true },
+        { "id": "search", "price": 200, "icon": "FileTextIcon", "isEssential": true },
+        { "id": "categories", "price": 300, "icon": "ArchiveIcon", "isEssential": true },
+        { "id": "favorites", "price": 200, "icon": "AwardIcon", "isEssential": true },
+        { "id": "watch_later", "price": 200, "icon": "CalendarIcon", "isEssential": true },
+        { "id": "arabic_support", "price": 0, "icon": "GlobeIcon", "isEssential": true }
       ]
     },
     {
-      "id": "technical",
-      "icon": "EcommerceIcon",
+      "id": "interface",
+      "icon": "EyeIcon",
       "features": [
-        { "id": "calorie_macro_calculation", "price": 150, "icon": "BarChart2Icon", "isEssential": true  },
-        { "id": "meal_plan_generator", "price": 350, "icon": "PackageIcon",   },
-    { "id": "food_logging", "price": 400, "icon": "ClipboardListIcon", "isEssential": true  },
-    { "id": "food_logging_cv", "price": 600, "icon": "EyeIcon", "isEssential": false },
-        { "id": "recipe_database", "price": 350, "icon": "ArchiveIcon", "isEssential": true  },
-        { "id": "recipe_database_local", "price": 200, "icon": "ArchiveIcon", "isEssential": false },
-                { "id": "exercise_programs", "price": 450, "icon": "ShieldIcon", "isEssential": true  },
-        { "id": "progress_tracking", "price": 350, "icon": "AwardIcon" }
+        { "id": "netflix_interface", "price": 600, "icon": "EyeIcon", "isEssential": false, "isExclusive": "simple_interface" },
+        { "id": "simple_interface", "price": 0, "icon": "EyeIcon", "isEssential": false, "isExclusive": "netflix_interface" }
       ]
     },
     {
-      "id": "development",
-      "icon": "ForumIcon",
+      "id": "platforms",
+      "icon": "WatchIcon",
       "features": [
-    { "id": "wearables_integration", "price": 1100, "icon": "GitMergeIcon" },
-        { "id": "movement_reminders", "price": 150, "icon": "BarChart2Icon" },
-    { "id": "sleep_tracking_basic", "price": 150, "icon": "Share2Icon", "isEssential": false },
-    { "id": "sleep_tracking_phone", "price": 300, "icon": "Share2Icon", "isEssential": false },
-    { "id": "sleep_tracking_wearables", "price": 450, "icon": "Share2Icon", "isEssential": false },
-    { "id": "stress_management", "price": 300, "icon": "BellIcon" },
-        { "id": "dashboard_analytics", "price": 450, "icon": "BarChart2Icon", "isEssential": true },
-        { "id": "historical_records", "price": 300, "icon": "ShieldIcon" }
+        { "id": "mobile_app", "price": 750, "icon": "WatchIcon", "isEssential": false, "isExclusive": ["responsive_website", "smart_tv"] },
+        { "id": "responsive_website", "price": 450, "icon": "GlobeIcon", "isEssential": false, "isExclusive": ["mobile_app", "smart_tv"] },
+        { "id": "smart_tv", "price": 1950, "icon": "WatchIcon", "isEssential": false, "isExclusive": ["mobile_app", "responsive_website"] }
       ]
     },
     {
       "id": "extras",
       "icon": "PlusIcon",
        "features": [
-        { "id": "ai_recommendations", "price": 450, "icon": "UserIcon" },
-        { "id": "notifications_system", "price": 300, "icon": "BellIcon" },
-                { "id": "social_gamification", "price": 500, "icon": "AwardIcon" },
-                { "id": "monthly_maintenance_hosting", "price": 250, "icon": "ServerIcon", "isEssential": false }
+        { "id": "recommendations", "price": 450, "icon": "UserIcon" },
+        { "id": "rating_comments", "price": 500, "icon": "AwardIcon" },
+        { "id": "multi_profiles", "price": 700, "icon": "UserIcon" },
+        { "id": "offline_download", "price": 750, "icon": "DownloadIcon" },
+        { "id": "notifications", "price": 300, "icon": "BellIcon" },
+        { "id": "multilingual_support", "price": 600, "icon": "GlobeIcon" },
+        { "id": "support_tickets", "price": 300, "icon": "TicketIcon" },
+        { "id": "live_chat", "price": 400, "icon": "MessageCircleIcon" },
+        { "id": "knowledge_base", "price": 300, "icon": "FileTextIcon" }
       ]
     }
   ]
@@ -209,31 +210,31 @@ const useCart = () => {
 // --- UI COMPONENTS ---
 
 const LandingPage = ({ onStart, t }) => (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 text-gray-800 flex flex-col items-center justify-center p-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center opacity-5" style={{backgroundImage: "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"health\" patternUnits=\"userSpaceOnUse\" width=\"20\" height=\"20\"><circle cx=\"10\" cy=\"10\" r=\"2\" fill=\"%2310b981\" opacity=\"0.1\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23health)\"/></svg>')"}}></div>
-        <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-emerald-500/10 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-4000"></div>
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center opacity-5" style={{backgroundImage: "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"streaming\" patternUnits=\"userSpaceOnUse\" width=\"20\" height=\"20\"><circle cx=\"10\" cy=\"10\" r=\"2\" fill=\"%23ef4444\" opacity=\"0.1\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23streaming)\"/></svg>')"}}></div>
+        <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-red-500/10 rounded-full filter blur-3xl animate-pulse-slow"></div>
+        <div className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-red-600/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-4000"></div>
 
         <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10">
-            <h1 className="text-2xl font-bold tracking-tighter text-emerald-700">
-                <span className="text-emerald-600">🏥</span> HealthApp<span className="text-blue-600">.Config</span>
+            <h1 className="text-2xl font-bold tracking-tighter text-red-500">
+                <span className="text-red-600">�</span> ميديا الحشد<span className="text-white">.Config</span>
             </h1>
         </header>
 
         <main className="text-center z-10 flex flex-col items-center">
             <div className="mb-6">
-                <span className="text-6xl">🏥💚</span>
+                <span className="text-6xl">�🎯</span>
             </div>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight text-emerald-800" style={{textShadow: '0 2px 10px rgba(16,185,129,0.3)'}}>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight text-white" style={{textShadow: '0 2px 20px rgba(239,68,68,0.5)'}}>
                 {t('landing.title')}
             </h2>
-            <p className="max-w-2xl text-lg md:text-xl text-gray-600 mb-8">
+            <p className="max-w-2xl text-lg md:text-xl text-gray-300 mb-8">
                 {t('landing.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                     onClick={onStart} 
-                    className="bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold px-8 py-4 rounded-full text-lg hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-500/30"
+                    className="bg-gradient-to-r from-red-600 to-red-700 text-white font-bold px-8 py-4 rounded-full text-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-500/30"
                 >
                     {t('landing.cta')}
                 </button>
@@ -301,24 +302,24 @@ const ConfiguratorPage = ({ onBack, t }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 text-gray-800 font-sans">
-            <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-green-200 shadow-sm">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white font-sans">
+            <header className="sticky top-0 z-30 bg-black/95 backdrop-blur-xl border-b border-red-900/50 shadow-lg">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     <h1 onClick={onBack} className="cursor-pointer text-2xl font-bold tracking-tighter text-emerald-700">
-                        <span className="text-emerald-600">🏥</span> HealthApp<span className="text-blue-600">.Config</span>
+                        <span className="text-emerald-600">�</span> ميديا الحشد<span className="text-blue-600">.Config</span>
                     </h1>
                 </div>
             </header>
             <main className="container mx-auto p-4 lg:p-8">
                 <div className="mb-8 text-center">
-                    <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-emerald-800 mb-2">{t('configurator.title')}</h2>
-                    <p className="text-lg text-gray-600 mb-6">تصميم تطبيق صحي متكامل لحياة أفضل</p>
-                    <div className="mt-4 flex justify-center items-center gap-2 md:gap-4 text-sm text-gray-500">
-                        <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium">{t('configurator.steps.1')}</span>
-                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180 text-emerald-400" />
-                        <span className="bg-blue-500 text-white px-3 py-1 rounded-full font-medium">{t('configurator.steps.2')}</span>
-                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180 text-emerald-400" />
-                        <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">{t('configurator.steps.3')}</span>
+                    <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">{t('configurator.title')}</h2>
+                    <p className="text-lg text-gray-300 mb-6">تصميم منصة بث عربية متطورة شبيهة بـ Netflix</p>
+                    <div className="mt-4 flex justify-center items-center gap-2 md:gap-4 text-sm text-gray-400">
+                        <span className="bg-red-600 text-white px-3 py-1 rounded-full font-medium">{t('configurator.steps.1')}</span>
+                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180 text-red-400" />
+                        <span className="bg-red-500 text-white px-3 py-1 rounded-full font-medium">{t('configurator.steps.2')}</span>
+                        <ChevronRightIcon className="w-5 h-5 rtl:rotate-180 text-red-400" />
+                        <span className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full font-medium">{t('configurator.steps.3')}</span>
                     </div>
                 </div>
                 
@@ -345,15 +346,15 @@ const ConfiguratorPage = ({ onBack, t }) => {
 const SectionCard = ({ section, t, handleToggleFeature, isInCart }) => {
     const SectionIcon = ICONS[section.icon];
     return (
-        <div className="bg-white border border-green-200 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-100/50 animate-fade-in-up">
-            <div className="p-6 bg-gradient-to-r from-emerald-500 to-blue-500 flex items-center gap-4 border-b border-emerald-200">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:border-red-600/50 hover:shadow-2xl hover:shadow-red-900/30 animate-fade-in-up">
+            <div className="p-6 bg-gradient-to-r from-red-600 to-red-800 flex items-center gap-4 border-b border-red-800">
                 {SectionIcon && <SectionIcon className="w-10 h-10 text-white" />}
                 <div>
                     <h3 className="text-2xl font-bold text-white">{t(`section.${section.id}.title`)}</h3>
-                    <p className="text-emerald-100">{t(`section.${section.id}.desc`)}</p>
+                    <p className="text-red-100">{t(`section.${section.id}.desc`)}</p>
                 </div>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-800">
                 {section.features.map((feature, index) => (
                     <FeatureRow 
                         key={feature.id}
@@ -384,34 +385,34 @@ const FeatureRow = ({ feature, t, onToggle, isInCart, index }) => {
 
     return (
         <div 
-           className="p-4 flex items-center justify-between gap-4 hover:bg-emerald-50 transition-colors duration-200 animate-fade-in-up" 
+           className="p-4 flex items-center justify-between gap-4 hover:bg-gray-800/50 transition-colors duration-200 animate-fade-in-up" 
            style={{animationDelay: `${index * 50}ms`}}
         >
             <div className="flex items-center gap-4">
-                <DynamicIcon name={feature.icon} className="w-6 h-6 text-emerald-600 hidden sm:block" />
+                <DynamicIcon name={feature.icon} className="w-6 h-6 text-red-500 hidden sm:block" />
                 <div>
                     <div className="flex items-center gap-2">
-                        <h4 className="font-semibold text-gray-800">{t(`feature.${feature.id}.title`)}</h4>
+                        <h4 className="font-semibold text-white">{t(`feature.${feature.id}.title`)}</h4>
                         {feature.isEssential && (
-                            <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full shadow-sm">
+                            <span className="text-xs font-bold text-white bg-red-600 px-2 py-0.5 rounded-full shadow-sm">
                                 {t('feature.essential_tag')}
                             </span>
                         )}
                         {feature.isExclusive && (
-                            <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full shadow-sm">
+                            <span className="text-xs font-bold text-white bg-gray-600 px-2 py-0.5 rounded-full shadow-sm">
                                 {t('feature.exclusive_tag')}
                             </span>
                         )}
                     </div>
-                    <p className="text-sm text-gray-600">{t(`feature.${feature.id}.desc`)}</p>
+                    <p className="text-sm text-gray-400">{t(`feature.${feature.id}.desc`)}</p>
                 </div>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-                <div className="text-emerald-600 font-bold text-sm sm:text-base">{formattedPrice}</div>
+                <div className="text-red-500 font-bold text-sm sm:text-base">{formattedPrice}</div>
                 {feature.isEssential ? (
                     <button
                         disabled
-                        className="w-28 h-10 rounded-full font-bold text-sm flex items-center justify-center gap-1 bg-emerald-100 text-emerald-700 cursor-not-allowed"
+                        className="w-28 h-10 rounded-full font-bold text-sm flex items-center justify-center gap-1 bg-red-200 text-red-800 cursor-not-allowed"
                     >
                         <CheckIcon className="w-4 h-4" />
                         <span>{t('feature.added_tag')}</span>
@@ -422,8 +423,8 @@ const FeatureRow = ({ feature, t, onToggle, isInCart, index }) => {
                         onClick={() => onToggle(feature, buttonRef)} 
                         className={`w-28 h-10 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center gap-1 ${
                             inCart 
-                            ? 'bg-red-100 text-red-600 hover:bg-red-200'
-                            : 'bg-blue-500 text-white hover:bg-blue-600'
+                            ? 'bg-gray-700 text-white hover:bg-gray-600'
+                            : 'bg-red-600 text-white hover:bg-red-700'
                         }`}
                     >
                         {inCart ? ( <> <CheckIcon className="w-4 h-4" /> <span>{t('feature.remove')}</span> </> ) 
@@ -472,15 +473,15 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white border border-green-200 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-fade-in">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-fade-in">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-green-200 bg-gradient-to-r from-emerald-500 to-blue-500">
+                <div className="flex items-center justify-between p-6 border-b border-gray-700 bg-gradient-to-r from-red-600 to-red-800">
                     <div className="flex items-center gap-3">
                         <EyeIcon className="w-6 h-6 text-white" />
                         <div>
                             <h2 className="text-xl font-bold text-white">{t('review.title')}</h2>
-                            <p className="text-emerald-100 text-sm">{t('review.subtitle')}</p>
+                            <p className="text-red-100 text-sm">{t('review.subtitle')}</p>
                         </div>
                     </div>
                     <button 
@@ -493,8 +494,8 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                 </div>
 
                 {/* Content */}
-                <div className="p-6 max-h-[60vh] overflow-y-auto bg-gray-50">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('review.selected_features')}</h3>
+                <div className="p-6 max-h-[60vh] overflow-y-auto bg-gray-800">
+                    <h3 className="text-lg font-semibold text-white mb-4">{t('review.selected_features')}</h3>
                     
                     {/* Features by section */}
                     {featuresData.sections.map(section => {
@@ -504,25 +505,25 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                         return (
                             <div key={section.id} className="mb-6">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <DynamicIcon name={section.icon} className="w-5 h-5 text-emerald-600" />
-                                    <h4 className="text-md font-semibold text-gray-700">{t(`section.${section.id}.title`)}</h4>
+                                    <DynamicIcon name={section.icon} className="w-5 h-5 text-red-500" />
+                                    <h4 className="text-md font-semibold text-gray-300">{t(`section.${section.id}.title`)}</h4>
                                 </div>
                                 <div className="space-y-2">
                                     {sectionFeatures.map(item => (
-                                        <div key={item.fullId} className="flex items-center justify-between bg-white border border-green-100 p-3 rounded-lg shadow-sm">
+                                        <div key={item.fullId} className="flex items-center justify-between bg-gray-700 border border-gray-600 p-3 rounded-lg shadow-sm">
                                             <div className="flex items-center gap-3">
-                                                <DynamicIcon name={item.icon} className="w-4 h-4 text-emerald-600" />
+                                                <DynamicIcon name={item.icon} className="w-4 h-4 text-red-400" />
                                                 <div>
-                                                    <span className="text-gray-800 text-sm font-medium">{t(`feature.${item.id}.title`)}</span>
+                                                    <span className="text-white text-sm font-medium">{t(`feature.${item.id}.title`)}</span>
                                                     {item.isEssential && (
-                                                        <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full mr-2">
+                                                        <span className="text-xs font-bold text-white bg-red-600 px-2 py-0.5 rounded-full mr-2">
                                                             {t('feature.essential_tag')}
                                                         </span>
                                                     )}
-                                                    <p className="text-gray-600 text-xs">{t(`feature.${item.id}.desc`)}</p>
+                                                    <p className="text-gray-400 text-xs">{t(`feature.${item.id}.desc`)}</p>
                                                 </div>
                                             </div>
-                                            <span className="text-emerald-600 font-semibold">{formatCurrency(item.price)}</span>
+                                            <span className="text-red-400 font-semibold">{formatCurrency(item.price)}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -532,16 +533,16 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-green-200 bg-white">
+                <div className="p-6 border-t border-gray-700 bg-gray-900">
                     <div className="flex items-center justify-between mb-4">
-                        <span className="text-lg font-bold text-gray-800">{t('review.total_cost')}</span>
-                        <span className="text-2xl font-extrabold text-emerald-600">{formatCurrency(total)}</span>
+                        <span className="text-lg font-bold text-white">{t('review.total_cost')}</span>
+                        <span className="text-2xl font-extrabold text-red-500">{formatCurrency(total)}</span>
                     </div>
                     
                     <div className="flex gap-3">
                         <button 
                             onClick={onClose}
-                            className="flex-1 bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors"
+                            className="flex-1 bg-gray-700 text-gray-300 font-semibold py-3 rounded-lg hover:bg-gray-600 transition-colors"
                             disabled={isGenerating}
                         >
                             {t('review.cancel')}
@@ -549,7 +550,7 @@ const ReviewModal = ({ isOpen, onClose, selectedItems, total, t, onConfirm, isGe
                         <button 
                             onClick={onConfirm}
                             disabled={isGenerating}
-                            className="flex-1 bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold py-3 rounded-lg hover:from-emerald-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                            className="flex-1 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-3 rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
                         >
                             {isGenerating ? (
                                 <>
@@ -805,26 +806,26 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
                 isGenerating={isGenerating}
             />
             
-            <div className="sticky top-28 bg-white border border-green-200 rounded-2xl shadow-lg p-6">
+            <div className="sticky top-28 bg-gray-900 border border-gray-700 rounded-2xl shadow-xl p-6">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 ref={cartIconRef} className="text-xl font-bold text-gray-800">{t('cart.title')}</h3>
+                    <h3 ref={cartIconRef} className="text-xl font-bold text-white">{t('cart.title')}</h3>
                 </div>
                 {selectedItems.length === 0 ? (
-                    <div className="text-center text-gray-500 py-12">
-                        <EcommerceIcon className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                    <div className="text-center text-gray-400 py-12">
+                        <EcommerceIcon className="w-16 h-16 mx-auto text-gray-600 mb-4" />
                         <p>{t('cart.empty')}</p>
                     </div>
                 ) : (
                     <div className="space-y-3 max-h-[300px] lg:max-h-[400px] overflow-y-auto pr-2 -mr-2">
                         {selectedItems.map(item => (
-                            <div key={item.fullId} className="flex justify-between items-center bg-green-50 border border-green-100 p-3 rounded-lg animate-fade-in-up">
+                            <div key={item.fullId} className="flex justify-between items-center bg-gray-800 border border-gray-700 p-3 rounded-lg animate-fade-in-up">
                                 <div className="flex items-center gap-3">
-                                    <DynamicIcon name={item.icon} className="w-5 h-5 text-emerald-600" />
-                                    <span className="text-sm text-gray-800">{t(`feature.${item.id}.title`)}</span>
-                                    {item.isEssential && <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">{t('feature.essential_tag')}</span>}
+                                    <DynamicIcon name={item.icon} className="w-5 h-5 text-red-500" />
+                                    <span className="text-sm text-white">{t(`feature.${item.id}.title`)}</span>
+                                    {item.isEssential && <span className="text-xs font-bold text-white bg-red-600 px-2 py-0.5 rounded-full">{t('feature.essential_tag')}</span>}
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className="text-sm font-semibold text-emerald-700">{formatCurrency(item.price)}</span>
+                                    <span className="text-sm font-semibold text-red-400">{formatCurrency(item.price)}</span>
                                     <button
                                         onClick={() => onRemove(item.fullId)}
                                         disabled={item.isEssential}
@@ -839,20 +840,20 @@ const Cart = ({ cartItems, t, cartIconRef, onRemove }) => {
                 )}
                 
                 {selectedItems.length > 0 && (
-                    <div className="mt-6 pt-6 border-t border-green-200 space-y-2 text-sm">
+                    <div className="mt-6 pt-6 border-t border-gray-700 space-y-2 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-gray-600">{t('cart.subtotal')}</span>
-                            <span className="font-semibold text-gray-800">{formatCurrency(subtotal)}</span>
+                            <span className="text-gray-400">{t('cart.subtotal')}</span>
+                            <span className="font-semibold text-white">{formatCurrency(subtotal)}</span>
                         </div>
                         <div className="flex justify-between text-lg">
-                            <span className="font-bold text-gray-800">{t('cart.total')}</span>
-                            <span className="text-emerald-600 font-extrabold text-2xl" aria-live="polite">
+                            <span className="font-bold text-white">{t('cart.total')}</span>
+                            <span className="text-red-500 font-extrabold text-2xl" aria-live="polite">
                                 {t('currency.usd')}<AnimatedNumber value={total} />
                             </span>
                         </div>
                         <button 
                             onClick={handleReviewClick}
-                            className="w-full mt-6 bg-gradient-to-r from-emerald-500 to-blue-500 text-white font-bold py-3 rounded-lg hover:from-emerald-600 hover:to-blue-600 transition-all transform hover:scale-[1.02] shadow-lg"
+                            className="w-full mt-6 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-3 rounded-lg hover:from-red-700 hover:to-red-800 transition-all transform hover:scale-[1.02] shadow-lg"
                         >
                             {t('cart.submit')}
                         </button>
@@ -882,18 +883,19 @@ export default function App() {
     return (
         <>
             <Head>
-                <title>HealthApp.Config - صمم تطبيق الصحة واللياقة الأمثل</title>
-                <meta name="description" content="اختر الميزات، قم بتكوين باقتك، وأنشئ تجربة صحية شخصية ومتطورة لتحقيق أهدافك الصحية" />
+                <title>ميديا الحشد.Config - صمم منصة البث العربية الأمثل</title>
+                <meta name="description" content="اختر الميزات، قم بتكوين باقتك، وأنشئ منصة بث عربية متطورة شبيهة بـ Netflix لجمهورك المستهدف" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.svg" />
             </Head>
             <style jsx global>{`
                 :root { font-family: 'Cairo', sans-serif; }
+                body { background-color: #111827; color: #ffffff; }
                 .high-contrast { background-color: #000 !important; color: #fff !important; }
-                .high-contrast .bg-white, .high-contrast .bg-green-50, .high-contrast .bg-emerald-50 { background: #000 !important; border: 1px solid #fff !important; }
-                .high-contrast .text-gray-600, .high-contrast .text-gray-800 { color: #fff !important; }
-                .high-contrast .text-emerald-600 { color: #10b981 !important; }
-                .high-contrast .bg-emerald-500 { background-color: #10b981 !important; color: #000 !important; }
+                .high-contrast .bg-gray-900, .high-contrast .bg-gray-800, .high-contrast .bg-gray-700 { background: #000 !important; border: 1px solid #fff !important; }
+                .high-contrast .text-gray-400, .high-contrast .text-gray-300, .high-contrast .text-white { color: #fff !important; }
+                .high-contrast .text-red-500 { color: #ef4444 !important; }
+                .high-contrast .bg-red-600 { background-color: #dc2626 !important; color: #fff !important; }
                 .animation-delay-4000 { animation-delay: 4s; }
                 .animate-pulse-slow { animation: pulse 8s cubic-bezier(0.4, 0.6, 1) infinite; }
                 .animate-pulse-fast { animation: pulse 0.3s cubic-bezier(0.4, 0, 0.6, 1) once; }
@@ -902,6 +904,11 @@ export default function App() {
                 .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; opacity: 0; }
                 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
                 .animate-fade-in { animation: fade-in 0.5s ease-out forwards; opacity: 0; }
+                /* Netflix-style scrollbar */
+                ::-webkit-scrollbar { width: 8px; }
+                ::-webkit-scrollbar-track { background: #374151; border-radius: 4px; }
+                ::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 4px; }
+                ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
             `}</style>
             {renderPage()}
         </>
