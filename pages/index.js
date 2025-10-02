@@ -36,9 +36,9 @@ const featuresData = {
       "id": "platforms",
       "icon": "WatchIcon",
       "features": [
-        { "id": "mobile_app", "price": 750, "icon": "WatchIcon", "isEssential": false, "isExclusive": ["responsive_website", "smart_tv"] },
-        { "id": "responsive_website", "price": 450, "icon": "GlobeIcon", "isEssential": false, "isExclusive": ["mobile_app", "smart_tv"] },
-        { "id": "smart_tv", "price": 1950, "icon": "WatchIcon", "isEssential": false, "isExclusive": ["mobile_app", "responsive_website"] }
+        { "id": "mobile_app", "price": 750, "icon": "WatchIcon", "isEssential": false },
+        { "id": "responsive_website", "price": 450, "icon": "GlobeIcon", "isEssential": false },
+        { "id": "smart_tv", "price": 1950, "icon": "WatchIcon", "isEssential": false }
       ]
     },
     {
